@@ -23,16 +23,18 @@ const Home = () => {
         <div className='home'>
             <div className="posts">
                 {posts.map(post => (
-                    <div className="post" key={post.id}>
-                        <div className="postImgContainer">
-                            <img className='postImg' src={post.img} alt="" />
-                        </div>
-                        <div className="postTitleContainer">
-                            <Link className='link' to={`/post/${post.id}`}>
+                    <Link className='link' to={`/post/${post.id}`}>
+                        <div className="post" key={post.id}>
+                            <div className="postImgContainer">
+                                <img className='postImg' src={post.img} alt="" />
+                            </div>
+                            <div className="postTitleContainer">
+
                                 <div className="postTitle">{post.title}</div>
-                            </Link>
+
+                            </div>
                         </div>
-                    </div>
+                    </Link>
 
                 ))}
             </div>
