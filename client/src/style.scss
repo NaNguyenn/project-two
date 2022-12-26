@@ -113,6 +113,11 @@ $hustRed: #da251d;
                     text-align: center;
                     color: $hustRed;
                 }
+
+                .successMessage {
+                    text-align: center;
+                    color: lightgreen;
+                }
             }
         }
 
@@ -134,13 +139,13 @@ $hustRed: #da251d;
 
                 .links {
                     display: flex;
-                    align-items: stretch;
+                    align-items: center;
                     gap: 10px;
 
-                    .link {
-                        display: flex;
-                        align-items: center;
-                    }
+                    // .link {
+                    //     display: flex;
+                    //     align-items: center;
+                    // }
 
                 }
             }
