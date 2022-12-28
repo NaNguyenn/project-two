@@ -19,7 +19,7 @@ const Navbar = () => {
                     <Link className='link' to="/?cat=world">World</Link>
                     {currentUser ? <div onClick={logout}>Logout</div> : <Link className='link accountLink' to="/account">Login</Link>}
                     <div>{currentUser?.username}</div>
-                    <div className='writeBtn'>Write</div>
+                    <Link className='link' to="/write">Write</Link>
                 </div>
             </div>
         </div>
