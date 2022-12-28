@@ -1,30 +1,67 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import EditButtonImg from '../img/edit.png'
 import DeleteButtonImg from '../img/delete.png'
 import {
-    Link
+    Link, useLocation, useNavigate
 } from "react-router-dom";
+import axios from 'axios';
+import { AuthContext } from '../context/authContext';
 
 const Single = () => {
+    const [post, setPost] = useState([])
+
+    const navigate = useNavigate()
+
+    //GET POSTID FROM URL
+    const location = useLocation()
+    const postId = location.pathname.split("/")[2]
+
+    const { currentUser } = useContext(AuthContext)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                //GET to posts.js
+                const res = await axios.get(`/posts/${postId}`)
+                setPost(res.data)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchData()
+    }, [postId])
+
+    const handleDelete = async () => {
+        try {
+            //GET to posts.js
+            await axios.delete(`/posts/${postId}`)
+            navigate("/")
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div className='single'>
             <div className="postContainer">
-                <div className="postTitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit</div>
-                <img className='postImg' src="https://images.pexels.com/photos/14143253/pexels-photo-14143253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                <div className="postTitle">{post.title}</div>
+                <img className='postImg' src={`../uploads/${post.img}`} alt="" />
                 <div className="userContainer">
-                    <img className='userImg' src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                    <img className='userImg' src={post.userImg} alt="" />
                     <div className="userInfo">
-                        <div className="userName">Nguyen</div>
-                        <div className="postTime">posted 2 hours ago</div>
+                        <div className="userName">{post.username}</div>
+                        <div className="postTime">posted on {post.date}</div>
                     </div>
-                    <Link to={`/write?edit=1`}>
-                        <img className='editBtn' src={EditButtonImg} alt="" />
-                    </Link>
-                    <Link>
-                        <img className='deleteBtn' src={DeleteButtonImg} alt="" />
-                    </Link>
+                    {currentUser.username === post.username &&
+                        <div className="edit">
+                            <Link to={`/write?edit=1`} state={post}>
+                                <img className='editBtn' src={EditButtonImg} alt="" />
+                            </Link>
+                            <img onClick={handleDelete} className='deleteBtn' src={DeleteButtonImg} alt="" />
+                        </div>
+                    }
                 </div>
-                <div className="postContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mattis odio nec ex cursus, id gravida nulla dignissim. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam ullamcorper maximus magna, id mattis est placerat ut. Cras nec vehicula nisi. Nam non est at leo convallis accumsan. Nulla tincidunt pellentesque pretium. Donec et mauris ut dolor pulvinar condimentum id id metus. Proin laoreet eleifend tempus. Aenean sem libero, vestibulum gravida tristique a, auctor at velit. Morbi varius neque sem, eu ullamcorper lectus volutpat a. Cras tempus facilisis tincidunt. Ut sem tortor, posuere sagittis ante vitae, condimentum tristique eros. Aliquam varius elit non augue congue sollicitudin. Pellentesque accumsan laoreet orci, non fermentum mi vehicula id. Phasellus sollicitudin tincidunt nulla vel tincidunt. Nullam est sapien, consequat ac ullamcorper id, elementum ac magna.</div>
+                <div className="postContent" dangerouslySetInnerHTML={{ __html: post.desc }}></div>
             </div>
         </div>
     )
