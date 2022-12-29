@@ -5,11 +5,13 @@ import axios from "axios"
 import { AuthContext } from '../context/authContext'
 
 const Account = () => {
+    //INITIALIZE inputs WITH DEFAULT username & password
     const [inputs, setInputs] = useState({
         username: "",
         password: ""
     })
 
+    //INITIALIZE error WITH null
     const [err, setError] = useState(null)
 
     const navigate = useNavigate()
@@ -18,6 +20,7 @@ const Account = () => {
 
     //HANDLE INPUT
     const handleChange = (e) => {
+        //UPDATE inputs WITH NEW VALUE
         setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
