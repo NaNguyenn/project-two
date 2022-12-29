@@ -3,7 +3,7 @@ import postRoutes from "./routes/posts.js"
 import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import cookieParser from "cookie-parser"
-import { db } from "./db.js"
+// import { db } from "./db.js"
 import multer from "multer"
 
 const app = express()
@@ -37,13 +37,13 @@ app.get("/test", (req, res) => {
 })
 
 // Test database connection
-app.get("/users", (req, res) => {
-    const q = "SELECT * FROM users"
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
+// app.get("/users", (req, res) => {
+//     const q = "SELECT * FROM users"
+//     db.query(q, (err, data) => {
+//         if (err) return res.json(err)
+//         return res.json(data)
+//     })
+// })
 //If fails
 // ALTER USER 'root@localhost' IDENTIFIED WITH mysql_native_password BY 'yu19151998'
 

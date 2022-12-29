@@ -83,12 +83,14 @@ video {
     padding: 0;
     border: 0;
     vertical-align: baseline;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 $hustRed: #da251d;
 
 .app {
     .container {
+        padding: 5px 10px;
 
         .link {
             text-decoration: none;
@@ -133,7 +135,7 @@ $hustRed: #da251d;
                 .logo {
 
                     img {
-                        width: 40px;
+                        width: 150px;
                     }
                 }
 
@@ -176,11 +178,24 @@ $hustRed: #da251d;
                         .postImg {
                             aspect-ratio: 3/2;
                             max-width: 150px;
+                            border-radius: 5px;
                         }
                     }
 
                     .postTitleContainer {
                         flex-grow: 1;
+
+                        .postTitle {
+                            font-weight: bolder;
+                            font-size: larger;
+                        }
+
+                        .postCategory {
+                            background-color: aliceblue;
+                            width: fit-content;
+                            padding: 2px 5px;
+                            border-radius: 10px;
+                        }
                     }
                 }
             }
@@ -199,7 +214,7 @@ $hustRed: #da251d;
                 gap: 30px;
 
                 .postTitle {
-                    font-size: larger;
+                    font-size: xx-large;
                     font-weight: bold;
                 }
 
@@ -240,6 +255,7 @@ $hustRed: #da251d;
 
                 .postContent {
                     text-align: justify;
+                    line-height: 1.8;
                 }
             }
         }

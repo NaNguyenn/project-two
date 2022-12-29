@@ -27,16 +27,28 @@ const Write = () => {
 
     const handleClick = async (e) => {
         e.preventDefault()
-        const imgUrl = await upload()
+        let imgUrl = ""
+        if (file) {
+            imgUrl = await upload()
+        } else {
+            imgUrl = state.img
+        }
 
         try {
             //IF UPDATING OLD POST
             state ? await axios.put(`/posts/${state.id}`, {
-                title, desc: value, cat, img: file ? imgUrl : ""
+                title,
+                desc: value,
+                cat,
+                img: imgUrl
             })
                 //IF WRITING NEW POST
                 : await axios.post(`/posts/`, {
-                    title, desc: value, cat, img: file ? imgUrl : "", date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
+                    title,
+                    desc: value,
+                    cat,
+                    img: imgUrl,
+                    date: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")
                 })
             navigate("/")
         } catch (err) {
@@ -51,10 +63,10 @@ const Write = () => {
                 <input id='postImgFile' onChange={e => setFile(e.target.files[0])} type="file" />
                 <label className='postImgBtn' htmlFor="postImgFile">Upload Image</label>
                 <label htmlFor="postCatSelect">Select news category: </label>
-                <select name="postCat" onChange={e => setCat(e.target.value)} id="postCatSelect">
+                <select name="postCat" value={cat} onChange={e => setCat(e.target.value)} id="postCatSelect">
                     <option value="" disabled>--Please choose an option--</option>
-                    <option value="local" checked={cat === "local"}>Local</option>
-                    <option value="world" checked={cat === "world"}>World</option>
+                    <option value="local">Local</option>
+                    <option value="world">World</option>
                 </select>
                 <div className='editorContainer'>
                     <ReactQuill className='editor' theme="bubble" value={value} onChange={setValue} placeholder="Write the content..." />

@@ -8,16 +8,20 @@ import axios from 'axios';
 import { AuthContext } from '../context/authContext';
 
 const Single = () => {
+    //INITIALIZE POST STATE AND SETTER FUNCTION
     const [post, setPost] = useState([])
 
+    //NAVIGATE FUNCTION
     const navigate = useNavigate()
 
     //GET POSTID FROM URL
     const location = useLocation()
     const postId = location.pathname.split("/")[2]
 
+    //GET CURRENT USER OBJECT
     const { currentUser } = useContext(AuthContext)
 
+    //FETCH DATA FROM SERVER WHEN postId CHANGES
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,6 +35,7 @@ const Single = () => {
         fetchData()
     }, [postId])
 
+    //DELETE POST FROM SERVER AND NAVIGATE TO HOME PAGE
     const handleDelete = async () => {
         try {
             //GET to posts.js
@@ -41,30 +46,55 @@ const Single = () => {
         }
     }
 
-    return (
-        <div className='single'>
-            <div className="postContainer">
-                <div className="postTitle">{post.title}</div>
-                <img className='postImg' src={`../uploads/${post.img}`} alt="" />
-                <div className="userContainer">
-                    <img className='userImg' src={post.userImg} alt="" />
-                    <div className="userInfo">
-                        <div className="userName">{post.username}</div>
-                        <div className="postTime">posted on {post.date}</div>
-                    </div>
-                    {currentUser.username === post.username &&
-                        <div className="edit">
-                            <Link to={`/write?edit=1`} state={post}>
-                                <img className='editBtn' src={EditButtonImg} alt="" />
-                            </Link>
-                            <img onClick={handleDelete} className='deleteBtn' src={DeleteButtonImg} alt="" />
+    //RENDER IF LOGGED IN
+    if (currentUser) {
+        return (
+            <div className='single'>
+                <div className="postContainer">
+                    <div className="postTitle">{post.title}</div>
+                    <img className='postImg' src={`../uploads/${post.img}`} alt="" />
+                    <div className="userContainer">
+                        <img className='userImg' src={post.userImg} alt="" />
+                        <div className="userInfo">
+                            <div className="userName">{post.username}</div>
+                            <div className="postTime">posted on {post.date}</div>
                         </div>
-                    }
+                        {/* ONLY RENDER EDIT BUTTONS WHEN USER IS THE AUTHOR */}
+                        {currentUser.username === post.username &&
+                            <div className="edit">
+                                <Link to={`/write?edit=1`} state={post}>
+                                    <img className='editBtn' src={EditButtonImg} alt="" />
+                                </Link>
+                                <img onClick={handleDelete} className='deleteBtn' src={DeleteButtonImg} alt="" />
+                            </div>
+                        }
+                    </div>
+                    {/* RENDER POST CONTENT FROM react quill DATA */}
+                    <div className="postContent" dangerouslySetInnerHTML={{ __html: post.desc }}></div>
                 </div>
-                <div className="postContent" dangerouslySetInnerHTML={{ __html: post.desc }}></div>
             </div>
-        </div>
-    )
+        )
+    }
+    //RENDER WHEN NOT LOGGED IN
+    else {
+        return (
+            <div className='single'>
+                <div className="postContainer">
+                    <div className="postTitle">{post.title}</div>
+                    <img className='postImg' src={`../uploads/${post.img}`} alt="" />
+                    <div className="userContainer">
+                        <img className='userImg' src={post.userImg} alt="" />
+                        <div className="userInfo">
+                            <div className="userName">{post.username}</div>
+                            <div className="postTime">posted on {post.date}</div>
+                        </div>
+                    </div>
+                    {/* RENDER POST CONTENT FROM react quill DATA */}
+                    <div className="postContent" dangerouslySetInnerHTML={{ __html: post.desc }}></div>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Single

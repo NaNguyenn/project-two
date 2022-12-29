@@ -3,7 +3,6 @@ import {
   RouterProvider,
   Outlet
 } from "react-router-dom";
-import Register from "./pages/Register"
 import Account from "./pages/Account"
 import Home from "./pages/Home"
 import Single from "./pages/Single"
@@ -12,6 +11,7 @@ import Navbar from "./components/Navbar";
 
 import "./style.scss";
 
+//Outlet COMPONENT ALLOWS RENDERING CHILDREN ROUTES
 const Layout = () => {
   return (
     <>
@@ -21,10 +21,12 @@ const Layout = () => {
   );
 };
 
+//RENDER Layout TO EVERY ROUTE
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    //FOR OUTLET
     children: [
       {
         path: "/",
@@ -41,10 +43,6 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/register",
-    element: <Register />,
-  },
-  {
     path: "/account",
     element: <Account />,
   },
@@ -54,6 +52,7 @@ function App() {
   return (
     <div className="app">
       <div className="container">
+        {/* PROVIDE router OBJECT TO THE APP */}
         <RouterProvider router={router} />
       </div>
     </div>
