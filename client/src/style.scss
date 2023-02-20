@@ -89,6 +89,10 @@ video {
 $hustRed: #da251d;
 
 .app {
+    .greenText {
+        color: green;
+    }
+
     .container {
         padding: 5px 10px;
 
@@ -143,6 +147,7 @@ $hustRed: #da251d;
                     display: flex;
                     align-items: center;
                     gap: 10px;
+                    cursor: pointer;
 
                     // .link {
                     //     display: flex;
@@ -164,12 +169,14 @@ $hustRed: #da251d;
 
         .home {
 
-            padding: 0px 2vw;
+            display: flex;
+            justify-content: center;
 
             .posts {
                 margin-top: 50px;
                 display: flex;
                 flex-direction: column;
+                width: 80%;
                 gap: 20px;
 
                 .post {
@@ -180,11 +187,9 @@ $hustRed: #da251d;
                     border-radius: 10px;
 
                     .postImgContainer {
-                        //flex: 1;
-
                         .postImg {
                             aspect-ratio: 3/2;
-                            max-width: 150px;
+                            width: 150px;
                             border-radius: 5px;
                         }
                     }
@@ -204,6 +209,12 @@ $hustRed: #da251d;
                             border-radius: 10px;
                         }
                     }
+                }
+            }
+
+            @media (min-width: 1200px) {
+                .posts {
+                    width: 60%;
                 }
             }
         }

@@ -1,0 +1,63 @@
+project-two\api
+project-two\client
+project-two\api\.gitignore
+project-two\api\controllers
+project-two\api\db.js
+project-two\api\index.js
+project-two\api\node_modules
+project-two\api\package-lock.json
+project-two\api\package.json
+project-two\api\routes
+project-two\api\uploads
+project-two\api\controllers\auth.js
+project-two\api\controllers\post.js
+project-two\api\controllers\user.js
+project-two\client\public\favicon.ico
+project-two\client\public\index.html
+project-two\client\public\logo192.png
+project-two\client\public\logo512.png
+project-two\client\public\manifest.json
+project-two\client\public\robots.txt
+project-two\client\public\uploads
+project-two\client\src\App.js
+project-two\client\src\components
+project-two\client\src\context
+project-two\client\src\img
+project-two\client\src\index.js
+project-two\client\src\pages
+project-two\client\src\style.scss
+project-two\client\src\components\Footer.jsx
+project-two\client\src\components\Navbar.jsx
+project-two\client\src\context\authContext.js
+project-two\client\src\img\delete.png
+project-two\client\src\img\edit.png
+project-two\client\src\img\logo.png
+project-two\client\src\pages\Account.jsx
+project-two\client\src\pages\Home.jsx
+project-two\client\src\pages\Single.jsx
+project-two\client\src\pages\Write.jsx
+
+In the project with a React front-end and a Node.js backend, the controllers, routes, components, context, and pages are all connected in the following way:
+
+Controllers: The controllers are responsible for handling requests to the API and performing the required actions, such as querying a database or performing calculations. 
+For example, the auth controller might handle requests related to user authentication, while the post controller might handle requests related to creating, reading, updating, and deleting posts. 
+The controllers typically define the endpoints of the API and return the appropriate response to the client.
+
+Routes: The routes define the paths that the API listens to and map them to the appropriate controller functions. 
+For example, a route might define a path such as /api/posts and map it to the createPost function in the post controller. 
+When a client sends a request to this path, the createPost function will be called and the response will be returned to the client.
+
+Components: In a React app, components are reusable pieces of UI that can be rendered to the DOM. 
+Components can be either functional or class-based, and they can receive props (short for properties) from their parent component. 
+Components are often organized into a hierarchy, with the root component being rendered to the DOM using the ReactDOM.render() function.
+
+Context: The context in a React app allows you to share state and methods between components without having to pass props down the component tree. 
+It is typically used for data that needs to be accessed by many components, such as authentication state or theme.
+
+Pages: In a full-stack project, the pages are typically the top-level components that correspond to different routes in the app. 
+For example, a blog app might have a Home page, an Account page, and a Write page. 
+When a user navigates to a certain route, the corresponding page component is rendered to the DOM.
+
+In summary, the controllers and routes handle requests and responses between the client and the backend, 
+while the components, context, and pages handle the rendering and interaction of the UI on the front-end.
+

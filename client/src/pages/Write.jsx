@@ -60,8 +60,15 @@ const Write = () => {
         <div className='write'>
             <div className="postContainer">
                 <input className='postTitle' value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' />
+
                 <input id='postImgFile' onChange={e => setFile(e.target.files[0])} type="file" />
                 <label className='postImgBtn' htmlFor="postImgFile">Upload Image</label>
+                {file && (
+                    <p className='greenText'>
+                        {file.name}
+                    </p>
+                )}
+
                 <label htmlFor="postCatSelect">Select news category: </label>
                 <select name="postCat" value={cat} onChange={e => setCat(e.target.value)} id="postCatSelect">
                     <option value="" disabled>--Please choose an option--</option>
