@@ -57,10 +57,10 @@ const Single = () => {
                         <img className='userImg' src={post.userImg} alt="" />
                         <div className="userInfo">
                             <div className="userName">{post.username}</div>
-                            <div className="postTime">posted on {post.date}</div>
+                            <div className="postTime">posted on {new Date(post.date).toLocaleString()}</div>
                         </div>
                         {/* ONLY RENDER EDIT BUTTONS WHEN USER IS THE AUTHOR */}
-                        {currentUser.username === post.username &&
+                        {(currentUser.username === post.username || currentUser.admin === 1) &&
                             <div className="edit">
                                 <Link to={`/write?edit=1`} state={post}>
                                     <img className='editBtn' src={EditButtonImg} alt="" />
@@ -86,7 +86,7 @@ const Single = () => {
                         <img className='userImg' src={post.userImg} alt="" />
                         <div className="userInfo">
                             <div className="userName">{post.username}</div>
-                            <div className="postTime">posted on {post.date}</div>
+                            <div className="postTime">posted on {new Date(post.date).toLocaleString()}</div>
                         </div>
                     </div>
                     {/* RENDER POST CONTENT FROM react quill DATA */}

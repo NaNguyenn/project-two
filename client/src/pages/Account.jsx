@@ -5,6 +5,8 @@ import axios from "axios"
 import { AuthContext } from '../context/authContext'
 
 const Account = () => {
+    const [formValid, setFormValid] = useState(false);
+
     //INITIALIZE inputs WITH DEFAULT username & password
     const [inputs, setInputs] = useState({
         username: "",
@@ -22,11 +24,16 @@ const Account = () => {
     const handleChange = (e) => {
         //UPDATE inputs WITH NEW VALUE
         setInputs(prev => ({ ...prev, [e.target.name]: e.target.value }))
+        setFormValid(e.target.form.checkValidity());
     }
 
     //REGISTER
     const handleRegister = async (e) => {
         e.preventDefault()
+        if (!formValid) {
+            setError('Please fill in all required fields.');
+            return;
+        }
         try {
             await axios.post("auth/register", inputs)
             navigate("/")
@@ -38,6 +45,10 @@ const Account = () => {
     //LOGIN
     const handleLogin = async (e) => {
         e.preventDefault()
+        if (!formValid) {
+            setError('Please fill in all required fields.');
+            return;
+        }
         try {
             // await axios.post("auth/login", inputs)
             await login(inputs)
@@ -55,8 +66,8 @@ const Account = () => {
             <form>
                 <input required name='username' type="text" placeholder='username' onChange={handleChange} />
                 <input required name='password' type="password" placeholder='password' onChange={handleChange} />
-                <button onClick={handleLogin}>Login</button>
-                <button onClick={handleRegister}>Register</button>
+                <button onClick={handleLogin} disabled={!formValid}>Login</button>
+                <button onClick={handleRegister} disabled={!formValid}>Register</button>
                 {err && <div className='errorMessage'>{err}</div>}
             </form>
         </div>
