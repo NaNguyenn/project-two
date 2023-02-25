@@ -45,7 +45,7 @@ app.get("/test", (req, res) => {
 //     })
 // })
 //If fails
-// ALTER USER 'root@localhost' IDENTIFIED WITH mysql_native_password BY 'yu19151998'
+// ALTER USER 'root@localhost' IDENTIFIED WITH mysql_native_password BY 'abcxyz'
 
 app.listen(2000, () => {
     console.log("Connected!")

@@ -1,6 +1,7 @@
 import { db } from "../db.js"
 import jwt from "jsonwebtoken"
 
+// Get all posts with category and sort by newest logic 
 export const getPosts = (req, res) => {
     const q = req.query.cat ? "SELECT * FROM posts WHERE cat=? ORDER BY id DESC" : "SELECT * FROM posts ORDER BY id DESC"
 
@@ -11,6 +12,7 @@ export const getPosts = (req, res) => {
     })
 }
 
+// Get single post logic
 export const getPost = (req, res) => {
     const q = "SELECT p.id, `username`, `title`, `desc`, p.img, u.img AS userImg, `cat`,`date` FROM users u JOIN posts p ON u.id = p.uid WHERE p.id = ? "
 
@@ -21,6 +23,7 @@ export const getPost = (req, res) => {
     })
 }
 
+// Create new post logic 
 export const addPost = (req, res) => {
     //CHECK USER TOKEN
     const token = req.cookies.accessToken
@@ -50,6 +53,7 @@ export const addPost = (req, res) => {
     })
 }
 
+// Delete post logic 
 export const deletePost = (req, res) => {
     //CHECK USER TOKEN
     const token = req.cookies.accessToken
@@ -71,6 +75,7 @@ export const deletePost = (req, res) => {
     })
 }
 
+// Edit existing post logic 
 export const updatePost = (req, res) => {
     //CHECK USER TOKEN
     const token = req.cookies.accessToken

@@ -18,17 +18,47 @@ const Navbar = () => {
     return (
         <div className='navBar'>
             <div className="container">
-                <Link className='link logo' to="/"><img src={Logo} alt="Logo" /></Link>
+                {/* Page logo  */}
+                <Link className='link logo' to="/">
+                    <img src={Logo} alt="Logo" />
+                </Link>
+                {/* Buttons  */}
                 <div className="links">
-                    <Link className='link' to="/">Home</Link>
-                    <Link className='link' to="/?cat=local">Local</Link>
-                    <Link className='link' to="/?cat=world">World</Link>
-                    <div>{currentUser?.username}</div>
+                    <Link className='link' to="/">
+                        Home
+                    </Link>
+                    <Link className='link' to="/?cat=local">
+                        Local
+                    </Link>
+                    <Link className='link' to="/?cat=world">
+                        World
+                    </Link>
+                    {currentUser &&
+                        <div>
+                            {currentUser?.username}
+                        </div>
+                    }
+
                     {/* ONLY RENDER LOGIN, LOGOUT AND WRITE BUTTONS WHEN AT HOME */}
                     {isHome && (
                         <>
-                            {currentUser ? <div className='link' onClick={logout}>Logout</div> : <Link className='link accountLink' to="/account">Login</Link>}
-                            {currentUser ? <Link className='link' to="/write">Write</Link> : <Link className='link' to="/account">Write</Link>}
+                            {currentUser ?
+                                <div className='link' onClick={logout}>
+                                    Logout
+                                </div>
+                                :
+                                <Link className='link accountLink' to="/account">
+                                    Login
+                                </Link>
+                            }
+                            {currentUser ?
+                                <Link className='link' to="/write">
+                                    Write
+                                </Link>
+                                :
+                                <Link className='link' to="/account">
+                                    Write
+                                </Link>}
                         </>
                     )}
                 </div>

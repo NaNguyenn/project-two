@@ -1,7 +1,7 @@
 import { db } from "../db.js"
 import jwt from "jsonwebtoken"
-// import bcrypt from "bcrypt"
 
+// Register logic 
 export const register = (req, res) => {
 
     //CHECK EXISTING USER
@@ -24,6 +24,8 @@ export const register = (req, res) => {
         })
     })
 }
+
+// Login logic
 export const login = (req, res) => {
 
     //CHECK USER
@@ -31,7 +33,7 @@ export const login = (req, res) => {
 
     db.query(q, [req.body.username], (err, data) => {
         if (err) return res.json(err)
-        if (data.length === 0) return res.status(404).json("User not found!")
+        if (data.length === 0) return res.status(404).json("Wrong user name or password!")
 
         //CHECK PASSWORD
         const isPasswordCorrect = req.body.password === data[0].password
@@ -45,6 +47,8 @@ export const login = (req, res) => {
         }).status(200).json(data[0])
     })
 }
+
+// Logout logic 
 export const logout = (req, res) => {
     res.clearCookie("accessToken", {
         sameSite: "none",

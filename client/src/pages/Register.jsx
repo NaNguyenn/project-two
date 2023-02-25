@@ -1,23 +1,22 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { AuthContext } from '../context/authContext'
+import axios from "axios"
 
-const LogIn = () => {
+const Register = () => {
     const [formValid, setFormValid] = useState(false);
 
     //INITIALIZE inputs WITH DEFAULT username & password
     const [inputs, setInputs] = useState({
         username: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     })
 
     //INITIALIZE error WITH null
     const [err, setError] = useState(null)
 
     const navigate = useNavigate()
-
-    const { login } = useContext(AuthContext)
 
     //HANDLE INPUT
     const handleChange = (e) => {
@@ -26,16 +25,20 @@ const LogIn = () => {
         setFormValid(e.target.form.checkValidity());
     }
 
-    //LOGIN
-    const handleLogin = async (e) => {
+    //REGISTER
+    const handleRegister = async (e) => {
         e.preventDefault()
         if (!formValid) {
             setError('Please fill in all required fields.');
             return;
         }
+        if (inputs.password !== inputs.confirmPassword) {
+            setError('Passwords not matched!');
+            return;
+        }
         try {
-            await login(inputs)
-            navigate("/")
+            await axios.post("auth/register", inputs)
+            navigate("/account")
         } catch (err) {
             setError(err.response.data)
         }
@@ -44,27 +47,27 @@ const LogIn = () => {
     return (
         <div className='auth'>
             <h1>
-                Log In
+                Sign Up
             </h1>
             <form>
                 <input required name='username' type="text" placeholder='username' onChange={handleChange} />
                 <input required name='password' type="password" placeholder='password' onChange={handleChange} />
+                <input required name='confirmPassword' type="password" placeholder='confirm password' onChange={handleChange} />
 
-                <button onClick={handleLogin} disabled={!formValid}>Login</button>
+                <button onClick={handleRegister} disabled={!formValid}>Register</button>
+
+                {err &&
+                    <div className='errorMessage'>
+                        {err}
+                    </div>
+                }
             </form>
-
-            {err &&
-                <div className='errorMessage'>
-                    {err}
-                </div>
-            }
-
             <div className='redirect'>
-                <p>Not registered?</p>
-                <Link className='link' to="/register">Sign up</Link>
+                <p>Already registered?</p>
+                <Link className='link' to="/account">Log in</Link>
             </div>
         </div>
     )
 }
 
-export default LogIn
+export default Register

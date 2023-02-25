@@ -10,6 +10,7 @@ import Write from "./pages/Write"
 import Navbar from "./components/Navbar";
 
 import "./style.scss";
+import Register from "./pages/Register";
 
 //Outlet COMPONENT ALLOWS RENDERING CHILDREN ROUTES
 const Layout = () => {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
   {
     path: "/account",
     element: <Account />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 
